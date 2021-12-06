@@ -1,0 +1,41 @@
+.input {
+  display: block;
+  margin: auto;
+  width: 80%;
+  border-radius: 10px;
+  border: none;
+  border: none;
+  background-color: #3b3387;
+  color: #beb9e5;
+}
+.heading {
+  /* padding: auto; */
+  margin-left: 85px;
+}
+.label {
+  display: block;
+  /* margin: auto; */
+  margin-left: 84px;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+.label-confirm {
+  display: block;
+  /* margin: auto; */
+  margin-left: 66px;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+.login {
+  cursor: pointer;
+}
+.button {
+  display: block;
+  margin-left: 87px;
+  margin-bottom: 7px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #66bdd5;
+  padding: 5px 15px 5px 15px;
+}
