@@ -1,6 +1,7 @@
-import React from "react";
+import React, {  } from "react";
 import classes from "./LoginForm.module.css";
 const LoginForm = (props) => {
+
   return (
     <form>
       <h3 className={classes.heading}>Login</h3>
@@ -12,7 +13,7 @@ const LoginForm = (props) => {
         Password
       </label>
       <input className={classes.input} type="password" id="password"></input>
-      <button className={classes.button} type="submit">
+      <button className={classes.button} type="submit" onClick={props.onLogged} >
         login
       </button>
       <p>

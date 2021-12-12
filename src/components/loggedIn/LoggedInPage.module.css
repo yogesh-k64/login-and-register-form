@@ -1,0 +1,21 @@
+.main-cointainer{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+.box{
+    text-align: center;
+    margin-top: 200px;
+    height: 200px;
+    width: 400px;
+    background-color: rgb(171, 178, 184);
+
+}
+.welcome{
+    font-weight: 500;
+    font-size: 30px;
+}
+.message{
+    font-size: 20px;
+}
+
