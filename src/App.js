@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./App.module.css";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
-import botpic from "./store/Bot-img.jpg";
+import botpic from "./media/Bot-img.jpg";
 function App() {
   const [showReg, setShowReg] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
