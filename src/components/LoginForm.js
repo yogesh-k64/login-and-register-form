@@ -1,27 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./LoginForm.module.css";
 import { userAction } from "../store/store";
 const LoginForm = (props) => {
+const [name,setName] = useState('');
+const [password,setPassword] = useState('');
 
   const dispatch = useDispatch();
 
   const logginHandler = (event) => {
     event.preventDefault();
-    console.log('login');
-    dispatch(userAction.onLogin())
+    dispatch(userAction.onLogin({
+      name,password
+    }))
+
   };
+
   return (
     <form>
       <h3 className={classes.heading}>Login</h3>
       <label className={classes.label} htmlFor="userName">
         Username
       </label>
-      <input className={classes.input} type="text" id="userName"></input>
+      <input className={classes.input} type="text" id="userName" onChange={(e)=>{setName(e.target.value)}} ></input>
       <label className={classes.label} htmlFor="password">
         Password
       </label>
-      <input className={classes.input} type="password" id="password"></input>
+      <input className={classes.input} type="password" id="password" onChange={(e)=>{setPassword(e.target.value)}}></input>
       <button className={classes.button} type="submit" onClick={logginHandler} >
         login
       </button>

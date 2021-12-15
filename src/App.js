@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./App.module.css";
 import LoggedInPage from "./components/loggedIn/LoggedInPage";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 import botpic from "./media/Bot-img.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userAction } from "./store/store";
 
 function App() {
-  const [showReg, setShowReg] = useState(false);
-  const [showLogin, setShowLogin] = useState(true);
-  // const [isLogged, setIsLogged] = useState(false);
 
-  const isLog = useSelector(state => state.user.isLogged);
+  const dispatch = useDispatch();
+  const isLog = useSelector((state) => state.user.isLogged);
+  const onLogin = useSelector((state) => state.user.onLogin);
 
-  const onRegHandler = () => {
-    setShowReg((prev) => !prev);
-    setShowLogin((prev) => !prev);
+  const onFormSwitchHandler = () => {
+    dispatch(userAction.formSwitch());
   };
-console.log(isLog)
+
+
   return (
     <React.Fragment>
       {!isLog && (
@@ -26,13 +26,8 @@ console.log(isLog)
             <img src={botpic} alt="bot pic"></img>
           </div>
           <div className={classes["login-container"]}>
-            {showLogin && (
-              <LoginForm
-                onReg={onRegHandler}
-                // onLogged={logginHandler}
-              ></LoginForm>
-            )}
-            {showReg && <RegistrationForm onLog={onRegHandler} />}
+            {onLogin && <LoginForm onReg={onFormSwitchHandler}></LoginForm>}
+            {!onLogin && <RegistrationForm onLog={onFormSwitchHandler} />}
           </div>
         </div>
       )}
