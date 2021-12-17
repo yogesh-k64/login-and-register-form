@@ -11,6 +11,7 @@ const pass = useSelector(state=>state.user.password);
 
   const logoutHandler =()=>{
 dispatch(userAction.onLogout());
+localStorage.removeItem('isLogged');
 }
 
   return (

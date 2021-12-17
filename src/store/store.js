@@ -11,10 +11,11 @@ const userSlice = createSlice({
   name: "userdls",
   initialState: userIntial,
   reducers: {
-    onLogin(state,action) {
+    
+    onLogin(state, action) {
       state.isLogged = true;
-      state.userName=action.payload.name
-      state.password=action.payload.password
+      state.userName = action.payload.name;
+      state.password = action.payload.password;
     },
     onLogout(state) {
       state.isLogged = false;
