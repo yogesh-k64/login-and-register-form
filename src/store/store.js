@@ -5,6 +5,8 @@ const userIntial = {
   password: "",
   isLogged: false,
   onLogin: true,
+  songs:[],
+  showSong:false
 };
 
 const userSlice = createSlice({
@@ -23,6 +25,12 @@ const userSlice = createSlice({
     formSwitch(state) {
       state.onLogin = !state.onLogin;
     },
+    getSongs(state,action){
+      state.songs=action.payload;
+    },
+    showSong(state){
+      state.showSong=!state.showSong;
+    }
   },
 });
 
