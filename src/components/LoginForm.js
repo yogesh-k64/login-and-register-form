@@ -2,19 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./LoginForm.module.css";
 import { userAction } from "../store/store";
+import { useNavigate } from "react-router-dom";
+
 const LoginForm = (props) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const storedIsLogged = localStorage.getItem("isLogged");
 
   useEffect(() => {
-    if (storedIsLogged !=null) {
-      const user=JSON.parse(storedIsLogged)
+    if (storedIsLogged != null) {
+      const user = JSON.parse(storedIsLogged);
       dispatch(userAction.onLogin(user));
     }
-  }, [storedIsLogged,dispatch]);
+  }, [storedIsLogged, dispatch]);
 
   const logginHandler = (event) => {
     event.preventDefault();
@@ -24,7 +27,7 @@ const LoginForm = (props) => {
         password,
       })
     );
-    localStorage.setItem("isLogged", JSON.stringify({name,password}));
+    localStorage.setItem("isLogged", JSON.stringify({ name, password }));
   };
 
   return (
@@ -57,7 +60,10 @@ const LoginForm = (props) => {
       </button>
       <p>
         don't have a acount?
-        <strong onClick={props.onReg} className={classes.register}>
+        <strong
+          onClick={() => navigate("/register-form")}
+          className={classes.register}
+        >
           Register here
         </strong>
       </p>

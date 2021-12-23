@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../../store/store";
 import classes from "./LoggedInPage.module.css";
-// import axios from "axios";
-var axios = require("axios").default;
+import axios from "axios";
+// var axios = require("axios").default;
 
 // to get new token
 // https://developer.spotify.com/console/get-playlist/
@@ -19,7 +19,6 @@ const LoggedInPage = () => {
     dispatch(userAction.onLogout());
     localStorage.removeItem("isLogged");
   };
-
   const accessToken =
     "BQAGEkGz5PnncgFGLg3mzW3qK0mY65CHEd4UtkQffOlMMJrsoj-IZzFJZQN6NueRA7W2BPgLo9TRonlRXeA6oz_pGx9fc3AhN8I37pPksmrBinenHpgs5nQNszQhZ6nzVNNKaKWBw5hDVURaGX5y7AWHdgE8z645mYc";
 
@@ -33,18 +32,17 @@ const LoggedInPage = () => {
   });
   const showSongs = () => {
     dispatch(userAction.showSong());
-      axios
-        .get("https://api.spotify.com/v1/playlists/3vTVQzTLZEgGpqGuVucPkB", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((res) => {
-          const tracks = res.data.tracks.items;
-          dispatch(userAction.getSongs(tracks));
-        })
-        .catch((err) => console.log(err));
-    
+    axios
+      .get("https://api.spotify.com/v1/playlists/3vTVQzTLZEgGpqGuVucPkB", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        const tracks = res.data.tracks.items;
+        dispatch(userAction.getSongs(tracks));
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

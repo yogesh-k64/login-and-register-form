@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import classes from "./RegistrationForm.module.css";
 
-const RegistrationForm = (props) => {
+const RegistrationForm = (props) => { 
+const navigate= useNavigate();
   return (
     <form>
       <h3 className={classes.heading} >Register</h3>
@@ -25,7 +27,7 @@ const RegistrationForm = (props) => {
       <button className={classes.button} type="submit">sign up</button>
       <p>
         already have an acount?{" "}
-        <strong className={classes.login} onClick={props.onLog}>
+        <strong className={classes.login} onClick={()=>navigate('/')}>
           login here
         </strong>
       </p>

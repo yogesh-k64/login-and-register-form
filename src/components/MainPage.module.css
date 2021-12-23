@@ -1,0 +1,30 @@
+.main-container {
+    background-color: #261c72;
+    /* background: rgb(38,28,114);
+  background: linear-gradient(180deg, rgba(38,28,114,1) 75%, rgba(84,70,186,1) 95%);
+  */  
+  height: 400px; 
+  
+    width: 90%;
+    margin: 5%;
+  }
+  .bot-img  {
+    float: left;
+    background-color: brown;
+    height: 100%;
+  }
+  .login-container{
+      /* background-color: burlywood; */
+      color: #BEB9E5;
+  padding: 20px ;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  img {
+    /* float: left; */
+    width: 100%;
+    height: 100%;
+  }
+  
