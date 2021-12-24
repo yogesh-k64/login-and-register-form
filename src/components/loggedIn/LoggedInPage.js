@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../../store/store";
 import classes from "./LoggedInPage.module.css";
 import axios from "axios";
 // var axios = require("axios").default;
+
+const accessToken =
+  "BQDsyhiSS2AuEBSt1-p7Wk0Xd9NvneXxClYf_JA58El71M3KJj0EG_-Bqrdh06lwmlY-Vo5hYnI7-cqijJ_bXrEjwz6ur1d1nky2ZF3X2xn0bruoInL7uiurgHK_r_OK23PZWSFFMqlBbW0oyzkq8_9OuF3Yr1m1goI";
 
 // to get new token
 // https://developer.spotify.com/console/get-playlist/
@@ -15,13 +18,6 @@ const LoggedInPage = () => {
   const songs = useSelector((state) => state.user.songs);
   const showSong = useSelector((state) => state.user.showSong);
 
-  const logoutHandler = () => {
-    dispatch(userAction.onLogout());
-    localStorage.removeItem("isLogged");
-  };
-  const accessToken =
-    "BQAGEkGz5PnncgFGLg3mzW3qK0mY65CHEd4UtkQffOlMMJrsoj-IZzFJZQN6NueRA7W2BPgLo9TRonlRXeA6oz_pGx9fc3AhN8I37pPksmrBinenHpgs5nQNszQhZ6nzVNNKaKWBw5hDVURaGX5y7AWHdgE8z645mYc";
-
   const song = songs.map((song) => {
     return {
       id: song.track.id,
@@ -30,8 +26,7 @@ const LoggedInPage = () => {
       songUrl: song.track.external_urls.spotify,
     };
   });
-  const showSongs = () => {
-    dispatch(userAction.showSong());
+  useEffect(() => {
     axios
       .get("https://api.spotify.com/v1/playlists/3vTVQzTLZEgGpqGuVucPkB", {
         headers: {
@@ -43,8 +38,17 @@ const LoggedInPage = () => {
         dispatch(userAction.getSongs(tracks));
       })
       .catch((err) => console.log(err));
+    console.log('fetch req sent');
+  },[dispatch]);
+
+  const logoutHandler = () => {
+    dispatch(userAction.onLogout());
+    localStorage.removeItem("isLogged");
   };
 
+  const showSongs = () => {
+    dispatch(userAction.showSong());
+  };
   return (
     <div className={classes["main-cointainer"]}>
       <section className={classes.box}>
@@ -58,6 +62,7 @@ const LoggedInPage = () => {
           {!showSong ? "get songs" : "hide songs"}
         </button>
       </section>
+
       {showSong &&
         song.map((song) => {
           return (
