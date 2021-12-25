@@ -4,7 +4,7 @@ import MainPage from "./components/MainPage";
 function App() {
   return (
     <React.Fragment>
-        <MainPage/> 
+      <MainPage />
     </React.Fragment>
   );
 }
