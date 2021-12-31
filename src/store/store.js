@@ -3,7 +3,6 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 const userIntial = {
   userName: "",
   password: "",
-  isLogged: false,
   songs:[],
   showSong:false
 };

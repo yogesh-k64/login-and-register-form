@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./LoginForm.module.css";
 import { userAction } from "../store/store";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = (props) => {
   const [name, setName] = useState("");
@@ -55,8 +55,10 @@ const LoginForm = (props) => {
           setPassword(e.target.value);
         }}
       ></input>
-      <button className={classes.button} type="submit" onClick={logginHandler}>
+      <button className={classes.button} type="submit" onClick={logginHandler}><Link to='/welcome'>
+      
         login
+      </Link> 
       </button>
       <p>
         don't have a acount?

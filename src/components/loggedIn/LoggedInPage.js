@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../../store/store";
 import classes from "./LoggedInPage.module.css";
 import axios from "axios";
-// var axios = require("axios").default;
+import { useNavigate } from "react-router-dom";
 
 const accessToken =
-  "BQBlH9wfw0sttz2ibTIo4RXQ283YPz3WvcDklVLMRudXXLGRS0w4uONoVkPs08k4oeH-8cUQxcOy3GkWgdZnRueNCkH9lS6UnZHo7lV7owV3LvYcDmPfIVJ1HJCoewJmT02J8EEkH4IzIC1yqf7KkioHXP7V4kcu3Cg";
+  "BQCp3oE2zyAodHuKOdj26-xDB0OsN6NNqK8DBrxAGbZTKDESMiAJawaNOgWqQn_zN7xRrxckyc5W50zF_7n51XbsHI56iKpk8F4thTYJpMyOQ7eEniurVRan3KS8mx0heW_QOQeMH_oOhGtKAXLgTVQ4_0nA48uKLyI";
+
 // to get new token
 // https://developer.spotify.com/console/get-playlist/
 
 const LoggedInPage = () => {
   const dispatch = useDispatch();
   const [songIndex, setSongIndex] = useState(0);
+  const navigate = useNavigate();
   const name = useSelector((state) => state.user.userName);
   const pass = useSelector((state) => state.user.password);
   const songs = useSelector((state) => state.user.songs);
@@ -42,7 +44,7 @@ const LoggedInPage = () => {
   }, [dispatch]);
 
   const logoutHandler = () => {
-    dispatch(userAction.onLogout());
+navigate('/')
     localStorage.removeItem("isLogged");
   };
 
@@ -66,7 +68,6 @@ const LoggedInPage = () => {
       {showSong && (
         <div>
           <h3> {song[songIndex].name}</h3>
-          <h3> {song.length}</h3>
 
           <audio
             controls
@@ -75,40 +76,28 @@ const LoggedInPage = () => {
           ></audio>
           <button
             onClick={() => {
-              if (songIndex === song.length) {
+              if (songIndex === song.length - 1) {
                 setSongIndex(0);
               } else {
-                setSongIndex( songIndex + 1);
+                setSongIndex(songIndex + 1);
               }
             }}
           >
             next
           </button>
-          <button onClick={() => {
-              if (songIndex === -1) {
-                setSongIndex((song.length)-1);
+          <button
+            onClick={() => {
+              if (songIndex === 0) {
+                setSongIndex(song.length - 1);
               } else {
-                setSongIndex( songIndex - 1);
+                setSongIndex(songIndex - 1);
               }
-            }}>prev</button>
+            }}
+          >
+            prev
+          </button>
         </div>
       )}
-      {/*showSong &&
-        song.map((song) => {
-          return (
-            <ul key={song.id}>
-              <li>
-                <p>{song.name}</p>
-                <span>
-                  <audio controls src={song.prevUrl} type="audio/mpeg"></audio>
-                </span>
-                <span>
-                  <a href={song.songUrl}>open in spotify</a>
-                </span>
-              </li>
-            </ul>
-          );
-        })*/}
     </div>
   );
 };
