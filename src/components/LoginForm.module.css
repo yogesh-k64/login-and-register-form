@@ -34,3 +34,7 @@
 .button:hover{
     cursor: pointer;
 }
+.notValid{
+  text-align: center;
+  color: red;
+}

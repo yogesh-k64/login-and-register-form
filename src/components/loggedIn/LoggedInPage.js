@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const accessToken =
-  "BQCp3oE2zyAodHuKOdj26-xDB0OsN6NNqK8DBrxAGbZTKDESMiAJawaNOgWqQn_zN7xRrxckyc5W50zF_7n51XbsHI56iKpk8F4thTYJpMyOQ7eEniurVRan3KS8mx0heW_QOQeMH_oOhGtKAXLgTVQ4_0nA48uKLyI";
+  "BQDM3FXI0v39g2kZRr1Oe_mxvadnWUllCxMjA8YYv5xnVBIUjsFpn_twffHWt_5USiOeR842BhkBTucpBArqKJLx50iyO04WpQRVp_jLt0TNqVhiASwBZ3aEIWjKEPeYXCYcqlKkmbaqgn1-FSSneiYr0QJFk9QspaQ";
 
 // to get new token
 // https://developer.spotify.com/console/get-playlist/
@@ -30,7 +30,7 @@ const LoggedInPage = () => {
   });
   useEffect(() => {
     axios
-      .get("https://api.spotify.com/v1/playlists/3vTVQzTLZEgGpqGuVucPkB", {
+      ("https://api.spotify.com/v1/playlists/3vTVQzTLZEgGpqGuVucPkB", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -51,6 +51,8 @@ navigate('/')
   const showSongs = () => {
     dispatch(userAction.showSong());
   };
+ 
+ 
   return (
     <div className={classes["main-cointainer"]}>
       <section className={classes.box}>

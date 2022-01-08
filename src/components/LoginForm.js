@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./LoginForm.module.css";
 import { userAction } from "../store/store";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = (props) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  // const [isValid, setIsValid] = useState(true);
+  // const [isTouched, setIsTouched] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,6 +24,7 @@ const LoginForm = (props) => {
 
   const logginHandler = (event) => {
     event.preventDefault();
+
     dispatch(
       userAction.onLogin({
         name,
@@ -28,8 +32,11 @@ const LoginForm = (props) => {
       })
     );
     localStorage.setItem("isLogged", JSON.stringify({ name, password }));
+    navigate("/welcome");
   };
-
+  // const focusHandler = () => {
+  //   setIsTouched(true);
+  // };
   return (
     <form>
       <h3 className={classes.heading}>Login</h3>
@@ -40,6 +47,7 @@ const LoginForm = (props) => {
         className={classes.input}
         type="text"
         id="userName"
+        // onFocus={focusHandler}
         onChange={(e) => {
           setName(e.target.value);
         }}
@@ -55,11 +63,12 @@ const LoginForm = (props) => {
           setPassword(e.target.value);
         }}
       ></input>
-      <button className={classes.button} type="submit" onClick={logginHandler}><Link to='/welcome'>
-      
+      <button className={classes.button} type="submit" onClick={logginHandler}>
         login
-      </Link> 
       </button>
+      {/* {!isValid && isTouched && (
+        <p className={classes.notValid}>name is not valid</p>
+      )} */}
       <p>
         don't have a acount?
         <strong
