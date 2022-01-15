@@ -1,42 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch} from "react-redux";
 import classes from "./LoginForm.module.css";
 import { userAction } from "../store/store";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginForm = (props) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  // const [isValid, setIsValid] = useState(true);
-  // const [isTouched, setIsTouched] = useState(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const storedIsLogged = localStorage.getItem("isLogged");
-
-  useEffect(() => {
-    if (storedIsLogged != null) {
-      const user = JSON.parse(storedIsLogged);
-      dispatch(userAction.onLogin(user));
-    }
-  }, [storedIsLogged, dispatch]);
+  // const token= useSelector(state=>state.user.idToken);
 
   const logginHandler = (event) => {
     event.preventDefault();
+    axios
+      .post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDbmI8V0_hNdfszsXS8y0DjzeAebGB5VOw",
+        { email: name, password: password, returnSecureToken: true }
+      )
+      .then((res) => {
+        if(res.data.registered){
 
-    dispatch(
-      userAction.onLogin({
-        name,
-        password,
+          const idToken = res.data.idToken;
+          const email=res.data.email;
+          dispatch(
+            userAction.onLogin({
+              email:email,
+              token:idToken
+            })
+            );
+            localStorage.setItem('token',idToken);
+            navigate("/welcome");
+          }
       })
-    );
-    localStorage.setItem("isLogged", JSON.stringify({ name, password }));
-    navigate("/welcome");
+      .catch((error) => {
+        if (error.response) {
+          alert(error.response.data.error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
   };
-  // const focusHandler = () => {
-  //   setIsTouched(true);
-  // };
+// console.log(token);
   return (
     <form>
       <h3 className={classes.heading}>Login</h3>
@@ -47,7 +53,6 @@ const LoginForm = (props) => {
         className={classes.input}
         type="text"
         id="userName"
-        // onFocus={focusHandler}
         onChange={(e) => {
           setName(e.target.value);
         }}
@@ -66,9 +71,7 @@ const LoginForm = (props) => {
       <button className={classes.button} type="submit" onClick={logginHandler}>
         login
       </button>
-      {/* {!isValid && isTouched && (
-        <p className={classes.notValid}>name is not valid</p>
-      )} */}
+
       <p>
         don't have a acount?
         <strong

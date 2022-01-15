@@ -20,7 +20,7 @@ function MainPage() {
           </Routes>
         </div>
       </div>
-      )
+      
     </React.Fragment>
   );
 }

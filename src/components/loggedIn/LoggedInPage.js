@@ -16,9 +16,9 @@ const LoggedInPage = () => {
   const [songIndex, setSongIndex] = useState(0);
   const navigate = useNavigate();
   const name = useSelector((state) => state.user.userName);
-  const pass = useSelector((state) => state.user.password);
   const songs = useSelector((state) => state.user.songs);
   const showSong = useSelector((state) => state.user.showSong);
+  // const token = useSelector((state) => state.user.idToken);
 
   const song = songs.map((song) => {
     return {
@@ -29,12 +29,11 @@ const LoggedInPage = () => {
     };
   });
   useEffect(() => {
-    axios
-      ("https://api.spotify.com/v1/playlists/3vTVQzTLZEgGpqGuVucPkB", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+    axios("https://api.spotify.com/v1/playlists/3vTVQzTLZEgGpqGuVucPkB", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
       .then((res) => {
         const tracks = res.data.tracks.items;
         dispatch(userAction.getSongs(tracks));
@@ -44,21 +43,20 @@ const LoggedInPage = () => {
   }, [dispatch]);
 
   const logoutHandler = () => {
-navigate('/')
-    localStorage.removeItem("isLogged");
+    dispatch(userAction.onLogout());
+    localStorage.removeItem('token')
+    navigate("/",{replace:true});
   };
 
   const showSongs = () => {
     dispatch(userAction.showSong());
   };
- 
- 
+
   return (
     <div className={classes["main-cointainer"]}>
       <section className={classes.box}>
         <h1 className={classes.welcome}>welcome</h1>
         <h3 className={classes.message}>{`user name: ${name}`}</h3>
-        <h3>{`user password: ${pass}`}</h3>
         <button className={classes.button} onClick={logoutHandler}>
           logout
         </button>
