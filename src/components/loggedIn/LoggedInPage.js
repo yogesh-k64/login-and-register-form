@@ -18,7 +18,6 @@ const LoggedInPage = () => {
   const name = useSelector((state) => state.user.userName);
   const songs = useSelector((state) => state.user.songs);
   const showSong = useSelector((state) => state.user.showSong);
-  // const token = useSelector((state) => state.user.idToken);
 
   const song = songs.map((song) => {
     return {
@@ -52,9 +51,16 @@ const LoggedInPage = () => {
     dispatch(userAction.showSong());
   };
 
+  const timeToLogout = localStorage.getItem("exp-time"); // section expires in ms
+
+  const currentTime = new Date().getTime(); /// gets current date and time in milliseconds
+
+  const remainingTime = timeToLogout - currentTime;
+  setTimeout(logoutHandler,remainingTime);
+
   return (
     <div className={classes["main-cointainer"]}>
-      <section className={classes.box}>
+      <section  className={classes.box}>
         <h1 className={classes.welcome}>welcome</h1>
         <h3 className={classes.message}>{`user name: ${name}`}</h3>
         <button className={classes.button} onClick={logoutHandler}>
@@ -98,6 +104,7 @@ const LoggedInPage = () => {
           </button>
         </div>
       )}
+      
     </div>
   );
 };

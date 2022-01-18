@@ -1,0 +1,40 @@
+.input {
+  display: block;
+  margin: auto;
+  width: 80%;
+  border-radius: 10px;
+  border: none;
+  background-color: #3B3387;
+  color: #BEB9E5;
+}
+.heading {
+  /* padding: auto; */
+  margin-left: 93px;
+}
+.label {
+  display: block;
+  /* margin: auto; */
+  margin-left: 84px;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+.register {
+  cursor: pointer;
+}
+.button {
+  display: block;
+  margin-left: 91px;
+  margin-bottom: 7px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #66bdd5;
+  padding: 5px 15px 5px 15px;
+}
+.button:hover{
+    cursor: pointer;
+}
+.notValid{
+  text-align: center;
+  color: red;
+}

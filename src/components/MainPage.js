@@ -1,6 +1,6 @@
 import React from "react";
-import LoginForm from "./LoginForm";
-import RegistrationForm from "./RegistrationForm";
+import LoginForm from "./forms/LoginForm";
+import RegistrationForm from "./forms/RegistrationForm";
 import botpic from "../media/Bot-img.jpg";
 import classes from "./MainPage.module.css";
 import { Route, Routes } from "react-router-dom";
