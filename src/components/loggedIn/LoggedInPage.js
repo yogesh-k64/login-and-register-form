@@ -104,7 +104,7 @@ const LoggedInPage = () => {
           </button>
         </div>
       )}
-      
+      <button onClick={()=>navigate('/flowchart')} >flowchart</button>
     </div>
   );
 };
