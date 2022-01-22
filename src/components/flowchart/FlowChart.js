@@ -1,19 +1,37 @@
-import React, { Fragment } from "react";
-import classes from './FlowChart.module.css'
+import React, { Fragment, useState } from "react";
+import State from "./State";
+
 const FlowChart = () => {
-  const data = [
-    { name: "yogesh", id: 12 },
-    { name: "raghul", id: 13 },
-  ];
+  const initialList = [{ id: 34242, next: null }];
+
+  const [list, setList] = useState(initialList);
+
+  const id = Math.random() * 10;
+
+  const createNodeHandler = () => {
+    if (list[list.length- 1].next === null) {
+      setList([...list,{ id: id, next: null }]);
+      console.log('last');
+    }
+  };
+  console.log(list);
+  const removeItemHandler = (state) => {
+    // const filteredList=list.filter((item)=>{
+    //   item.id!==
+    // })
+    console.log(state.value);
+  };
 
   return (
     <Fragment>
-      <div draggable="true" onDrag={(e) => console.log(e.dataTransfer)} >
-        {data.map(item=><p key={item.id}  >{item.name}</p>)}
-      </div>
-      <div className={classes['drop-zone']} ></div>
+      {list.map((state) => (
+        <State
+          key={state.id}
+          delete={removeItemHandler}
+          createNode={createNodeHandler}
+        />
+      ))}
     </Fragment>
   );
 };
-
 export default FlowChart;

@@ -1,5 +1,13 @@
+.start{
+    background:cornflowerblue;
+    width: 200px;
+    height: 200px;
+    /* float: left; */
+
+}
 .drop-zone{
     height: 200px;
     width: 300px;
     background:blanchedalmond;
+    
 }
