@@ -8,18 +8,21 @@ const FlowChart = () => {
 
   const id = Math.random() * 10;
 
-  const createNodeHandler = () => {
-    if (list[list.length- 1].next === null) {
-      setList([...list,{ id: id, next: null }]);
-      console.log('last');
+  const createNodeHandler = (next) => {
+    console.log(next);
+    if (next === null) {
+      list[list.length - 1].next = id;
+      setList([...list, { id: id, next: null }]);
+      
+    } else {
+      console.log("cant create");
     }
   };
   console.log(list);
-  const removeItemHandler = (state) => {
-    // const filteredList=list.filter((item)=>{
-    //   item.id!==
-    // })
-    console.log(state.value);
+  const removeItemHandler = (selectedId) => {
+    const filteredList = list.filter((item) => item.id !== selectedId);
+    filteredList[filteredList.length-1].next=null;
+    setList(filteredList)
   };
 
   return (
@@ -27,8 +30,8 @@ const FlowChart = () => {
       {list.map((state) => (
         <State
           key={state.id}
-          delete={removeItemHandler}
-          createNode={createNodeHandler}
+          delete={(e) => removeItemHandler(state.id, e)}
+          createNode={(e) => createNodeHandler(state.next, e)}
         />
       ))}
     </Fragment>
