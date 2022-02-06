@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
+import Console from "./components/adminOrUserUI/Console";
 import FlowChart from "./components/flowchart/FlowChart";
 import MainPage from "./components/MainPage";
 const LoggedInPage = React.lazy(() =>
@@ -22,6 +23,7 @@ function App() {
           <Route path="/welcome" element={<LoggedInPage />} />
 
           <Route path="/flowchart" element={<FlowChart />} />
+          <Route path='/console' element={<Console/>}/>
         </Routes>
       </Suspense>
     </React.Fragment>

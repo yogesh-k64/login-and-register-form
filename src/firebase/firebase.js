@@ -18,7 +18,7 @@ import { initializeApp } from "firebase/app";
 };
 
 // Initialize Firebase
-const app= initializeApp(firebaseConfig);
+export const app= initializeApp(firebaseConfig);
 /* 
   // On sign up.
 exports.processSignUp = getAuth(app)

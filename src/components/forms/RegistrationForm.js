@@ -37,10 +37,10 @@ const RegistrationForm = (props) => {
       //check if access token in local storage if yes navigate to /welcome
       const token = localStorage.getItem("token");
       console.log(token);
-      if (token) {
+      
         // BUG: if already existing user signedup also it gets navigated
         navigate("/welcome");
-      }
+      
     }
   };
 

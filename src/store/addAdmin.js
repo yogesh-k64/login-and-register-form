@@ -2,8 +2,10 @@ import { initializeApp } from "@firebase/app";
 import { createSlice } from "@reduxjs/toolkit";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseConfig } from "../firebase/firebase";
+// import { getDatabase } from "firebase/database";
 
-const firebaseApp = initializeApp(firebaseConfig);
+ initializeApp(firebaseConfig);
+// const db = getDatabase(firebaseApp);
 
 const addAdminSlice = createSlice({
   name: "addAdmin",
@@ -21,7 +23,7 @@ const addAdminSlice = createSlice({
         .then((userCred) => {
           console.log(userCred);
           console.log("user created");
-
+          // db.collection("users").doc(userCred.user.uid).set({ admin: true });
           const idToken = userCred._tokenResponse.idToken;
 
           localStorage.setItem("token", idToken);

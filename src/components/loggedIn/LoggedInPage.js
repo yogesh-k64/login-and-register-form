@@ -56,11 +56,15 @@ const LoggedInPage = () => {
   const currentTime = new Date().getTime(); /// gets current date and time in milliseconds
 
   const remainingTime = timeToLogout - currentTime;
-  setTimeout(logoutHandler,remainingTime);
-
+  setTimeout(logoutHandler, remainingTime);
+const getToUIhandler=()=>{
+  console.log('show console');
+  navigate('/console')
+}
+  
   return (
     <div className={classes["main-cointainer"]}>
-      <section  className={classes.box}>
+      <section className={classes.box}>
         <h1 className={classes.welcome}>welcome</h1>
         <h3 className={classes.message}>{`user name: ${name}`}</h3>
         <button className={classes.button} onClick={logoutHandler}>
@@ -105,7 +109,8 @@ const LoggedInPage = () => {
           </button>
         </div>
       )}
-      <button onClick={()=>navigate('/flowchart')} >flowchart</button>
+      <button onClick={() => navigate("/flowchart")}>flowchart</button>
+      <button onClick={getToUIhandler} >get to admin or user ui</button>
     </div>
   );
 };

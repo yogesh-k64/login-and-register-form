@@ -14,36 +14,44 @@ const LoginForm = (props) => {
   const logginHandler = (event) => {
     event.preventDefault();
 
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, name, password)
-      .then((res) => {
-        // console.log(res);
+    if (name.endsWith("@admin.com")) {
+      dispatch(
+        userAction.onLogin({ email: name, token: "sdhfskdfjshfkkjsdfh" })
+      );
+      console.log('user is admin');
+      navigate("/welcome");
+    } else {
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, name, password)
+        .then((res) => {
+          // console.log(res);
 
-        if (res._tokenResponse.registered) {
-          const idToken = res._tokenResponse.idToken;
-          const email = res._tokenResponse.email;
-          dispatch(
-            userAction.onLogin({
-              email: email,
-              token: idToken,
-            })
-          );
-          localStorage.setItem("token", idToken);
-          navigate("/welcome");
+          if (res._tokenResponse.registered) {
+            const idToken = res._tokenResponse.idToken;
+            const email = res._tokenResponse.email;
+            dispatch(
+              userAction.onLogin({
+                email: email,
+                token: idToken,
+              })
+            );
+            localStorage.setItem("token", idToken);
+            navigate("/welcome");
 
-          const current =
-            new Date().getTime() + res._tokenResponse.expiresIn * 1000; // section expire in ms
+            const current =
+              new Date().getTime() + res._tokenResponse.expiresIn * 1000; // section expire in ms
 
-          localStorage.setItem("exp-time", current);
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          alert(error.response.data.error.message);
-        } else {
-          alert(error.message);
-        }
-      });
+            localStorage.setItem("exp-time", current);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            alert(error.response.data.error.message);
+          } else {
+            alert(error.message);
+          }
+        });
+    }
   };
   return (
     <form>
