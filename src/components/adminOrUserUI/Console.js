@@ -7,7 +7,10 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { getAuth } from "firebase/auth";
-import { app } from "../../firebase/firebase";
+import { app, firebaseConfig } from "../../firebase/firebase";
+import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
+import { collection, getDocs } from "firebase/firestore"; 
 
 const Console = () => {
   const navigate = useNavigate();
@@ -18,7 +21,20 @@ const Console = () => {
   };
 useEffect(()=>{
   
+  const firebaseApp = initializeApp(firebaseConfig);
   // getAuth().listUsers.then(userList=>console.log(userList))
+
+  // Initialize Cloud Firestore through Firebase
+
+
+const db = getFirestore(firebaseApp);
+
+const querySnapshot =  getDocs(collection(db, "users")).then(res=>{
+console.log(res);
+  // res.forEach((doc) => {
+  //   console.log(`${doc.id} => ${doc.data()}`);
+  // });
+})
 
 },[])
 
