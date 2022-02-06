@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import classes from "./LoginForm.module.css";
 import { userAction } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = (props) => {
   const [name, setName] = useState("");
@@ -13,15 +13,15 @@ const LoginForm = (props) => {
 
   const logginHandler = (event) => {
     event.preventDefault();
-    axios
-      .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDbmI8V0_hNdfszsXS8y0DjzeAebGB5VOw",
-        { email: name, password: password, returnSecureToken: true }
-      )
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, name, password)
       .then((res) => {
-        if (res.data.registered) {
-          const idToken = res.data.idToken;
-          const email = res.data.email;
+        // console.log(res);
+
+        if (res._tokenResponse.registered) {
+          const idToken = res._tokenResponse.idToken;
+          const email = res._tokenResponse.email;
           dispatch(
             userAction.onLogin({
               email: email,
@@ -31,7 +31,8 @@ const LoginForm = (props) => {
           localStorage.setItem("token", idToken);
           navigate("/welcome");
 
-          const current = new Date().getTime() + res.data.expiresIn * 1000;  // section expire in ms
+          const current =
+            new Date().getTime() + res._tokenResponse.expiresIn * 1000; // section expire in ms
 
           localStorage.setItem("exp-time", current);
         }

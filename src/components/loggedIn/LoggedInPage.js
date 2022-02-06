@@ -4,6 +4,7 @@ import { userAction } from "../../store/store";
 import classes from "./LoggedInPage.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { addAdminAction } from "../../store/addAdmin";
 
 const accessToken =
   "BQDM3FXI0v39g2kZRr1Oe_mxvadnWUllCxMjA8YYv5xnVBIUjsFpn_twffHWt_5USiOeR842BhkBTucpBArqKJLx50iyO04WpQRVp_jLt0TNqVhiASwBZ3aEIWjKEPeYXCYcqlKkmbaqgn1-FSSneiYr0QJFk9QspaQ";
@@ -43,8 +44,7 @@ const LoggedInPage = () => {
 
   const logoutHandler = () => {
     dispatch(userAction.onLogout());
-    localStorage.removeItem('token')
-    navigate("/",{replace:true});
+    navigate("/", { replace: true });
   };
 
   const showSongs = () => {
@@ -69,6 +69,7 @@ const LoggedInPage = () => {
         <button className={classes.button} onClick={showSongs}>
           {!showSong ? "get songs" : "hide songs"}
         </button>
+        <button onClick={()=>dispatch(addAdminAction.customClaims())} > click</button>
       </section>
 
       {showSong && (

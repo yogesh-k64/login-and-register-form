@@ -1,6 +1,7 @@
-import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addAdminAction } from "../../store/addAdmin";
 import classes from "./RegistrationForm.module.css";
 
 const RegistrationForm = (props) => {
@@ -9,51 +10,37 @@ const RegistrationForm = (props) => {
   const userRef = useRef();
   const passRef = useRef();
   const confirmPassRef = useRef();
+  const dispatch = useDispatch();
 
   const submitHandler = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    const user = userRef.current.value;
-    const pass = passRef.current.value;
+    const email = userRef.current.value;
+    const password = passRef.current.value;
     const confirmPass = confirmPassRef.current.value;
 
-    const data = {
-      email: user,
-      password: pass,
-      returnSecureToken: true,
-    };
-
-    if (pass !== confirmPass) {
+    if (password !== confirmPass) {
       setIsLoading(false);
-      return alert("password should be same in both password and confirm password fields");
+      return alert(
+        "password should be same in both password and confirm password fields"
+      );
     }
-    if (pass === confirmPass) {
-      console.log(user, "matching pass");
+    if (password === confirmPass) {
+      console.log(email, "matching pass");
+
       ///  send user data to base
-      axios
-        .post(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDbmI8V0_hNdfszsXS8y0DjzeAebGB5VOw",
-          data
-        )
-        .then((res) => {
-          setIsLoading(false);
 
-          // console.log(res);
-          const response = res.data.idToken;
-          if (!!response) {
-            alert("your acount was created successfully login to begin");
-            navigate("/login");
-          }
-        })
-        .catch((error) => {
-          setIsLoading(false);
-
-          if (error.response) {
-            alert(error.response.data.error.message);
-          } else {
-            alert("Error", error.message);
-          }
-        });
+      dispatch(
+        addAdminAction.onCreateAdmin({ email: email, password: password })
+      );
+      setIsLoading(false);
+      //check if access token in local storage if yes navigate to /welcome
+      const token = localStorage.getItem("token");
+      console.log(token);
+      if (token) {
+        // BUG: if already existing user signedup also it gets navigated
+        navigate("/welcome");
+      }
     }
   };
 

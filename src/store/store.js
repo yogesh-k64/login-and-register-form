@@ -1,16 +1,16 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-// import { useNavigate } from "react-router-dom";
-// const navigate= useNavigate();
-const token = localStorage.getItem('token');
-var isLogged= !!token
+import { getAuth, signOut } from "firebase/auth";
+import addAdminSlice from "./addAdmin";
+
+const token = localStorage.getItem("token");
+var isLogged = !!token;
 const userIntial = {
   userName: "",
   songs: [],
   showSong: false,
   idToken: token,
-  isLoggedIn:isLogged
+  isLoggedIn: isLogged,
 };
-
 
 const userSlice = createSlice({
   name: "userdls",
@@ -19,15 +19,16 @@ const userSlice = createSlice({
     onLogin(state, action) {
       state.idToken = action.payload.token;
       state.userName = action.payload.email;
-      state.isLoggedIn=!!state.idToken
-    
-      // state.password = action.payload.password;
-      // navigate('/welcome',{replace:true})
+      state.isLoggedIn = !!state.idToken;
     },
     onLogout(state) {
       state.idToken = "";
-      state.isLoggedIn=!!state.idToken
-
+      state.isLoggedIn = !!state.idToken;
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("exp-time");
+      });
     },
 
     getSongs(state, action) {
@@ -40,7 +41,7 @@ const userSlice = createSlice({
 });
 
 const store = configureStore({
-  reducer: { user: userSlice.reducer },
+  reducer: { user: userSlice.reducer, admin: addAdminSlice.reducer },
 });
 export const userAction = userSlice.actions;
 
