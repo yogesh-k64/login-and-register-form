@@ -1,15 +1,16 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { getAuth, signOut } from "firebase/auth";
+// import { getAuth, signOut } from "firebase/auth";
 import addAdminSlice from "./addAdmin";
+import investSlice from "./investment";
 
-const token = localStorage.getItem("token");
-var isLogged = !!token;
+// const user = localStorage.getItem("user");
+// var isLogged = !!user;
 const userIntial = {
   userName: "",
   songs: [],
   showSong: false,
-  idToken: token,
-  isLoggedIn: isLogged,
+  // idToken: token,
+  isLoggedIn: false,
 };
 
 const userSlice = createSlice({
@@ -19,16 +20,21 @@ const userSlice = createSlice({
     onLogin(state, action) {
       state.idToken = action.payload.token;
       state.userName = action.payload.email;
-      state.isLoggedIn = !!state.idToken;
+      state.isLoggedIn = true;
+
+      // set time to auto logout (one hour)
+
+      const current = new Date().getTime() + 3600 * 1000; // section expire in ms
+
+      localStorage.setItem("exp-time", current);
+    
     },
     onLogout(state) {
       state.idToken = "";
-      state.isLoggedIn = !!state.idToken;
-      const auth = getAuth();
-      signOut(auth).then(() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("exp-time");
-      });
+      localStorage.removeItem("exp-time");
+      localStorage.removeItem("user");
+      state.isLoggedIn = false
+ 
     },
 
     getSongs(state, action) {
@@ -41,7 +47,11 @@ const userSlice = createSlice({
 });
 
 const store = configureStore({
-  reducer: { user: userSlice.reducer, admin: addAdminSlice.reducer },
+  reducer: {
+    user: userSlice.reducer,
+    admin: addAdminSlice.reducer,
+    invest: investSlice.reducer,
+  },
 });
 export const userAction = userSlice.actions;
 

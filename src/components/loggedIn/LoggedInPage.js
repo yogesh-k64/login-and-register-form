@@ -4,7 +4,7 @@ import { userAction } from "../../store/store";
 import classes from "./LoggedInPage.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { addAdminAction } from "../../store/addAdmin";
+// import { addAdminAction } from "../../store/addAdmin";
 
 const accessToken =
   "BQDM3FXI0v39g2kZRr1Oe_mxvadnWUllCxMjA8YYv5xnVBIUjsFpn_twffHWt_5USiOeR842BhkBTucpBArqKJLx50iyO04WpQRVp_jLt0TNqVhiASwBZ3aEIWjKEPeYXCYcqlKkmbaqgn1-FSSneiYr0QJFk9QspaQ";
@@ -44,6 +44,7 @@ const LoggedInPage = () => {
 
   const logoutHandler = () => {
     dispatch(userAction.onLogout());
+    //to make sure can't logged back by pressing back button
     navigate("/", { replace: true });
   };
 
@@ -57,23 +58,37 @@ const LoggedInPage = () => {
 
   const remainingTime = timeToLogout - currentTime;
   setTimeout(logoutHandler, remainingTime);
-const getToUIhandler=()=>{
-  console.log('show console');
-  navigate('/console')
-}
-  
+
+  const getToUIhandler = () => {
+    navigate("/console");
+  };
+
   return (
     <div className={classes["main-cointainer"]}>
       <section className={classes.box}>
         <h1 className={classes.welcome}>welcome</h1>
         <h3 className={classes.message}>{`user name: ${name}`}</h3>
-        <button className={classes.button} onClick={logoutHandler}>
-          logout
-        </button>
-        <button className={classes.button} onClick={showSongs}>
-          {!showSong ? "get songs" : "hide songs"}
-        </button>
-        <button onClick={()=>dispatch(addAdminAction.customClaims())} > click</button>
+        <div className={classes['buttons-container']}>
+          <button className={classes.button} onClick={getToUIhandler}>
+            get to console
+          </button>
+          <button
+            className={classes.button}
+            onClick={() => navigate("/flowchart")}
+          >
+            flowchart
+          </button>
+          <button
+            disabled={true}
+            className={classes.button}
+            onClick={showSongs}
+          >
+            {!showSong ? "get songs" : "hide songs"}
+          </button>
+          <button className={classes.button} onClick={logoutHandler}>
+            logout
+          </button>
+        </div>
       </section>
 
       {showSong && (
@@ -109,8 +124,6 @@ const getToUIhandler=()=>{
           </button>
         </div>
       )}
-      <button onClick={() => navigate("/flowchart")}>flowchart</button>
-      <button onClick={getToUIhandler} >get to admin or user ui</button>
     </div>
   );
 };

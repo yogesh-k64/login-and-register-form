@@ -9,20 +9,23 @@ const FlowChart = () => {
   const id = Math.random() * 10;
 
   const createNodeHandler = (next) => {
-    console.log(next);
     if (next === null) {
       list[list.length - 1].next = id;
       setList([...list, { id: id, next: null }]);
       
     } else {
-      console.log("cant create");
+      alert("cant create");
     }
   };
-  console.log(list);
   const removeItemHandler = (selectedId) => {
-    const filteredList = list.filter((item) => item.id !== selectedId);
-    filteredList[filteredList.length-1].next=null;
-    setList(filteredList)
+    if(list.length!==1){
+
+      const filteredList = list.filter((item) => item.id !== selectedId);
+      filteredList[filteredList.length-1].next=null;
+      setList(filteredList)
+    }else{
+      alert(`can't delete last block, Try adding new block`)
+    }
   };
 
   return (

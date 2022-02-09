@@ -1,0 +1,30 @@
+.add {
+  float: left;
+  margin-right: 40px;
+}
+.label {
+  font-size: 50px;
+  display: block;
+}
+.input {
+  display: inline-block;
+}
+.table {
+  border: 2px solid black;
+}
+.th {
+  border-bottom: 2px solid black;
+}
+.td {
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+.button {
+  background-color: #183a1d;
+  color: #e1eedd;
+  border-radius: 20%;
+  border: none;
+  margin-left: 20px;
+  padding: 5px 10px 5px 10px;
+  box-shadow: 5px 5px 5px grey;
+}

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import classes from "./LoginForm.module.css";
 import { userAction } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = (props) => {
   const [name, setName] = useState("");
@@ -13,44 +13,30 @@ const LoginForm = (props) => {
 
   const logginHandler = (event) => {
     event.preventDefault();
-
+    //  error handling
+    const errorHandler = () => {
+      alert(`${name} is not registered as an user`);
+    };
+    //check if user is admin or not
     if (name.endsWith("@admin.com")) {
+      console.log("user is admin");
+      localStorage.setItem("user", "admin");
       dispatch(
         userAction.onLogin({ email: name, token: "sdhfskdfjshfkkjsdfh" })
       );
-      console.log('user is admin');
       navigate("/welcome");
+
+    } else if (name.endsWith("@user.com")) {
+      console.log("user is not admin");
+      localStorage.setItem("user", "user");
+      dispatch(
+        userAction.onLogin({ email: name, token: "sdhfskdfjshfkkjsdfh" })
+      );
+      navigate("/welcome");
+
     } else {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, name, password)
-        .then((res) => {
-          // console.log(res);
-
-          if (res._tokenResponse.registered) {
-            const idToken = res._tokenResponse.idToken;
-            const email = res._tokenResponse.email;
-            dispatch(
-              userAction.onLogin({
-                email: email,
-                token: idToken,
-              })
-            );
-            localStorage.setItem("token", idToken);
-            navigate("/welcome");
-
-            const current =
-              new Date().getTime() + res._tokenResponse.expiresIn * 1000; // section expire in ms
-
-            localStorage.setItem("exp-time", current);
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            alert(error.response.data.error.message);
-          } else {
-            alert(error.message);
-          }
-        });
+      errorHandler();
+      console.log(`name:${name}`, `password:${password}`);
     }
   };
   return (
@@ -90,6 +76,10 @@ const LoginForm = (props) => {
         >
           Register here
         </strong>
+      </p>
+      <p>
+        note : user ends with '@user.com'
+        <br></br> admin ends with '@admin.com'
       </p>
     </form>
   );

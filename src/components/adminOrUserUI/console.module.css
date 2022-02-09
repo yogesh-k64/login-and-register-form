@@ -1,26 +1,23 @@
 .main-container {
   margin: 0;
   padding: 0;
-  background-color: rgb(231, 229, 226);
-  height: 100vh;
+  background-color: #fefbe9;
+  height: 100%;
   width: 100%;
 }
 .top-nav {
   width: 100%;
-  height: 15%;
-  background-color: rgb(140, 194, 196);
+  height: 110px;
+  background-color: #e1eedd;
   display: flex;
-  
+  box-shadow: 20px 10px 10px grey;
+  justify-content: center;
+  align-items: center;
 }
 .container {
-  /* background-color: chartreuse; */
   width: 100%;
   height: 100%;
-}
-.side-bar {
-  background-color: rgb(140, 194, 196);
-  height: 85%;
-  width: 10%;
+  position: relative;
 }
 .back {
   font-size: 6vw;
@@ -28,11 +25,35 @@
 }
 .profile {
   font-size: 5vw;
-  /* display: flex; */
-  /* width: 100%; */
   margin: auto;
+  text-align: center;
+  position: relative;
+}
+.profile-icon {
+  position: absolute;
+  left: -78px;
+  bottom: -1px;
+}
+.profile-name {
+  display: inline;
+}
+.side-bar {
+  background-color: #e1eedd;
+  height: 100vh;
+  width: 10%;
+  box-shadow: 20px 10px 10px grey;
 }
 .icons {
   font-size: 6vw;
   margin: 2vw;
+  margin-top: 60%;
+}
+.active {
+  box-shadow: 10px 10px 5px grey;
+  border-radius: 20%;
+}
+.wallet {
+  top: 93px;
+  left: 381px;
+  position: absolute;
 }

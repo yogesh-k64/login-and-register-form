@@ -1,40 +1,44 @@
-.main-cointainer{
+.main-cointainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: #e1eedd;
+}
+.box {
+  text-align: center;
+  height: 80%;
+  width: 80%;
+  background-color: #fefbe9;
+  position: relative;
+  margin-top: 1rem;
+}
+.welcome {
+  font-weight: 500;
+  font-size: 100px;
+  margin-top: 2rem;
+}
+.message {
+  position: absolute;
+  top: 163px;
+  left: 358px;
+  font-size: 20px;
+}
+.buttons-container{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* height: 100vh; */
-    /* overflow: scroll; */
+    justify-content: space-evenly;
 }
-.box{
-    text-align: center;
-    /* margin-top: 200px; */
-    height: 250px;
-    width: 400px;
-    background-color: rgb(171, 178, 184);
-
-}
-.welcome{
-    font-weight: 500;
-    font-size: 30px;
-}
-.message{
-    font-size: 20px;
-}
-.button{
-    /* display: block; */
-    /* margin-left: 91px; */
-    /* margin-bottom: 7px; */
-    /* margin-top: 10px; */
-    border: none;
-    border-radius: 10px;
-    background-color: #66bdd5;
-    padding: 5px 15px 5px 15px;
-    cursor: pointer;
+.button {
+  border: none;
+  border-radius: 10px;
+  background-color: #183a1d;
+  color: #e1eedd;
+  padding: 5px 15px 5px 15px;
+  cursor: pointer;
 }
 
-.music-player{
-    background-color: #383838;
-    height: 200px;
-    width: 200px;
+.music-player {
+  background-color: #383838;
+  height: 200px;
+  width: 200px;
 }

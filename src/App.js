@@ -23,7 +23,7 @@ function App() {
           <Route path="/welcome" element={<LoggedInPage />} />
 
           <Route path="/flowchart" element={<FlowChart />} />
-          <Route path='/console' element={<Console/>}/>
+          <Route path="/console" element={<Console />}/>
         </Routes>
       </Suspense>
     </React.Fragment>
